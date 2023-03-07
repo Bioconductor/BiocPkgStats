@@ -82,12 +82,14 @@ totalrd <- length(revdeps)
 ```{r}
 ## Activity since date
 ## Issues closed: 
-activity <- activitySince(
-    gh_repo,
-    "issues",
-    "closed",
-    since_date
-)
+suppressMessages({
+    activity <- activitySince(
+        gh_repo,
+        "issues",
+        "closed",
+        since_date
+    )
+})
 nclosed <- nrow(activity)
 nclosed <-
     paste0(nclosed, " ", if (identical(nclosed, 1L)) "issue" else "issues")
@@ -95,11 +97,13 @@ nclosed <-
 
 ```{r}
 ## Commits made:
-commitact <- activitySince(
-    gh_repo,
-    "commits",
-    Date = since_date
-)
+suppressMessages({
+    commitact <- activitySince(
+        gh_repo,
+        "commits",
+        Date = since_date
+    )
+})
 ncommits <- nrow(commitact)
 ncommits <-
     paste0(ncommits, " ", if (identical(ncommits, 1L)) "commit" else "commits")
