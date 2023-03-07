@@ -72,10 +72,13 @@ generateReport <- function(
         outdir, paste0(pkg, "_", basename(template))
     )
 
+    type <- .get_pkg_type(pkg)
+
     rendered <- whisker::whisker.render(
         template = temp_char,
         data = list(
-            package = pkg, org = gh_org, sinceDate = since_date, anyPkgs = TRUE
+            package = pkg, org = gh_org, sinceDate = since_date,
+            pkgType = type, anyPkgs = TRUE
         )
     )
 
@@ -90,4 +93,10 @@ generateReport <- function(
     }
 
     invisible(outdir)
+}
+
+.get_pkg_type <- function(package) {
+    bv <- utils::packageDescription(pkg = package)$biocViews
+    terms <- unlist(strsplit(packageDescription(package)$biocViews, ",\\s+|\n"))
+    type <- biocViews::guessPackageType(terms)
 }

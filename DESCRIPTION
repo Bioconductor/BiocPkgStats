@@ -11,6 +11,8 @@ Description: Create package reports as RMarkdown documents. Rendering
 License: Artistic-2.0
 Imports:
   BiocBaseUtils,
+  biocViews,
+  utils,
   whisker
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

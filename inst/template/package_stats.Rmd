@@ -12,45 +12,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r,include=TRUE,results="hide",message=FALSE,warning=FALSE}
 library(BiocPkgTools)
+library(BiocPkgStats)
 library(lubridate)
 ```
 ```{r}
 package <- "{{{package}}}"
 gh_org <- "{{{org}}}"
 gh_repo <- paste(gh_org, package, sep = "/")
-```
-
-```{r}
-bv <- packageDescription(pkg = package)$biocViews
-terms <- unlist(strsplit(packageDescription(package)$biocViews, ",\\s+|\n"))
-type <- biocViews::guessPackageType(terms)
-```
-
-```{r}
-typeTranslate <- function(type_term) {
-    # integrate with BiocPkgTools:::repo_short_names?
-    result <- switch(
-        type_term,
-        Software = "software",
-        ExperimentData = "data-experiment",
-        AnnotationData = "data-annotation",
-        Workflow = "workflows",
-        NULL
-    )
-    if (is.null(result))
-        stop("Term could not be matched")
-    result
-}
-pkgType <- typeTranslate(type)
-```
-
-```{r}
-typeEnglish <- function(package_type) {
-    if (endsWith(package_type, "s"))
-        package_type <-
-            substr(package_type, nchar(package_type), nchar(package_type))
-    gsub("-", " ", package_type)
-}
+pkgType <- typeTranslate("{{{pkgType}}}")
 packageType <- typeEnglish(pkgType)
 ```
 
