@@ -9,9 +9,6 @@
 #'   commit and issue history. This should be specified in the year, month, and
 #'   day format, 'YYYY-MM-DD'.
 #'
-#' @param template `character(1)` The file location of the template, this
-#'   defaults to the internal template
-#'
 #' @param overwrite `logical(1)` Whether to overwrite an existing rendered
 #'   product, i.e., a runnable RMarkdown document.
 #'
@@ -40,7 +37,8 @@
 #'
 #' @export
 generateReport <- function(
-    packages, gh_org, since_date, template, overwrite = FALSE
+    packages, gh_org, since_date,
+    overwrite = FALSE
 ) {
     stopifnot(
         BiocBaseUtils::isCharacter(packages),
@@ -49,6 +47,9 @@ generateReport <- function(
         BiocBaseUtils::isTRUEorFALSE(overwrite)
     )
 
+    template <- system.file(
+        package = "BiocPkgStats", "template", "package_stats.Rmd"
+    )
     base_path <- dirname(template)
     temp_char <- readLines(template)
 

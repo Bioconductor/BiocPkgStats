@@ -4,7 +4,7 @@
 \alias{generateReport}
 \title{Create a report a given set of packages}
 \usage{
-generateReport(packages, gh_org, since_date, template, overwrite = FALSE)
+generateReport(packages, gh_org, since_date, overwrite = FALSE)
 }
 \arguments{
 \item{packages}{\code{character()} A vector of valid package names}
@@ -15,9 +15,6 @@ issue and commit data from.}
 \item{since_date}{\code{character(1)} The date from when to start looking at
 commit and issue history. This should be specified in the year, month, and
 day format, 'YYYY-MM-DD'.}
-
-\item{template}{\code{character(1)} The file location of the template, this
-defaults to the internal template}
 
 \item{overwrite}{\code{logical(1)} Whether to overwrite an existing rendered
 product, i.e., a runnable RMarkdown document.}
