@@ -33,8 +33,9 @@ dlrank <- round(dlrank, 0)
 ```
 
 ```{r}
+now <- year(Sys.time())
 ## Average Downloads
-dls <- pkgDownloadStats(package, pkgType = pkgType, years = 2021:2023)
+dls <- pkgDownloadStats(package, pkgType = pkgType, years = syear:now)
 avgdls <- mean(dls[["Nb_of_distinct_IPs"]])
 avgdls <- round(avgdls, 0)
 ```
