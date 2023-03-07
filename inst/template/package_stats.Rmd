@@ -110,7 +110,7 @@ in Bioconductor, averaging about `r avgdls` downloads per month since `r smonth`
 `r syear`. About `r totalrd` Bioconductor packages depend on {{{package}}} in
 either their Depends, Imports, or Suggests fields. We have closed  `r nclosed`
 on GitHub relating to questions and improvements to the {{{package}}}
-infrastructure from the community and created `r ncommits` commits
+infrastructure from the community and created `r ncommits`
 to the software to provide additional functionality and documentation.
 
 {{/anyPkgs}}
