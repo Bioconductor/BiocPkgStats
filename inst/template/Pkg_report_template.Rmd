@@ -1,0 +1,118 @@
+---
+title: "{{{package}}}: Reporting Statistics"
+output: html_document
+date: "2023-03-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+{{#anyPkgs}}
+
+```{r,include=TRUE,results="hide",message=FALSE,warning=FALSE}
+library(BiocPkgTools)
+library(lubridate)
+```
+```{r}
+package <- "{{{package}}}"
+gh_org <- "{{{org}}}"
+gh_repo <- paste(gh_org, package, sep = "/")
+```
+
+```{r}
+bv <- packageDescription(pkg = package)$biocViews
+terms <- unlist(strsplit(packageDescription(package)$biocViews, ",\\s+|\n"))
+type <- biocViews::guessPackageType(terms)
+```
+
+```{r}
+typeTranslate <- function(type_term) {
+    # integrate with BiocPkgTools:::repo_short_names?
+    result <- switch(
+        type_term,
+        Software = "software",
+        ExperimentData = "data-experiment",
+        AnnotationData = "data-annotation",
+        Workflow = "workflows",
+        NULL
+    )
+    if (is.null(result))
+        stop("Term could not be matched")
+    result
+}
+pkgType <- typeTranslate(type)
+```
+
+```{r}
+typeEnglish <- function(package_type) {
+    if (endsWith(package_type, "s"))
+        package_type <-
+            substr(package_type, nchar(package_type), nchar(package_type))
+    gsub("-", " ", package_type)
+}
+packageType <- typeEnglish(pkgType)
+```
+
+```{r}
+## Release Download Rank
+since_date <- as_date("{{{sinceDate}}}")
+smonth <- month(since_date, abbr = FALSE, label = TRUE)
+syear <- year(since_date)
+dlrank <- pkgDownloadRank(pkg = package, pkgType = pkgType, version = "3.16")
+dlrank <- round(dlrank, 0)
+```
+
+```{r}
+## Average Downloads
+dls <- pkgDownloadStats(package, pkgType = pkgType, years = 2021:2023)
+avgdls <- mean(dls[["Nb_of_distinct_IPs"]])
+avgdls <- round(avgdls, 0)
+```
+
+```{r}
+## Number of reverse dependencies
+db <- available.packages(repos = BiocManager::repositories())
+revdeps <- tools::package_dependencies(
+    packages = package, db = db, reverse = TRUE, which = "all"
+)[[1]]
+totalrd <- length(revdeps)
+```
+
+```{r}
+## Activity since date
+## Issues closed: 
+activity <- activitySince(
+    gh_repo,
+    "issues",
+    "closed",
+    since_date
+)
+nclosed <- nrow(activity)
+nclosed <-
+    paste0(nclosed, " ", if (identical(nclosed, 1L)) "issue" else "issues")
+```
+
+```{r}
+## Commits made:
+commitact <- activitySince(
+    gh_repo,
+    "commits",
+    Date = since_date
+)
+ncommits <- nrow(commitact)
+ncommits <-
+    paste0(ncommits, " ", if (identical(ncommits, 1L)) "commit" else "commits")
+```
+
+## {{{package}}}
+
+{{{package}}} is in the top `r dlrank`% most downloaded `r packageType` packages
+in Bioconductor, averaging about `r avgdls` downloads per month since `r smonth`
+`r syear`. About `r totalrd` Bioconductor packages depend on {{{package}}} in
+either their Depends, Imports, or Suggests fields. We have closed  `r nclosed`
+on GitHub relating to questions and improvements to the {{{package}}}
+infrastructure from the community and created `r ncommits` commits
+to the software to provide additional functionality and documentation.
+
+{{/anyPkgs}}
