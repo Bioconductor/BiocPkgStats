@@ -44,14 +44,14 @@ generateReport(
         "MultiAssayExperiment", "cBioPortalData", "SingleCellMultiModal"
     ),
     gh_org = "waldronlab",
-    since_date = "2021-05-01",
+    since_date = "2017-05-01",
     overwrite = TRUE
 )
 
 generateReport(
     "RaggedExperiment",
     gh_org = "Bioconductor",
-    since_date = "2021-05-01",
+    since_date = "2017-05-01",
     overwrite = TRUE
 )
 
