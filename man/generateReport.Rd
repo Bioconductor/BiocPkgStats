@@ -12,6 +12,10 @@ generateReport(packages, gh_org, since_date, template, overwrite = FALSE)
 \item{gh_org}{\code{character(1)} The GitHub organization from which to read
 issue and commit data from.}
 
+\item{since_date}{\code{character(1)} The date from when to start looking at
+commit and issue history. This should be specified in the year, month, and
+day format, 'YYYY-MM-DD'.}
+
 \item{template}{\code{character(1)} The file location of the template, this
 defaults to the internal template}
 

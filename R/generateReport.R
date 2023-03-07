@@ -5,6 +5,10 @@
 #' @param gh_org `character(1)` The GitHub organization from which to read
 #'   issue and commit data from.
 #'
+#' @param since_date `character(1)` The date from when to start looking at
+#'   commit and issue history. This should be specified in the year, month, and
+#'   day format, 'YYYY-MM-DD'.
+#'
 #' @param template `character(1)` The file location of the template, this
 #'   defaults to the internal template
 #'
