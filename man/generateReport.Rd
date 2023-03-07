@@ -20,8 +20,18 @@ day format, 'YYYY-MM-DD'.}
 product, i.e., a runnable RMarkdown document.}
 }
 \description{
-Create a report a given set of packages
+The function compiles statistics for Bioconductor packages that
+have GitHub repositories. It uses functionality in \code{BiocPkgTools} to
+extract commit and issue history. A token is required to access the
+GitHub commit and issue history.
 }
+\section{Authentication}{
+
+The package uses the \code{gh} package calls from \code{BiocPkgTools}. Users must
+authenticate with a GitHub Fine Grained Token and add the token using
+\code{gitcreds::gitcreds_set()}.
+}
+
 \examples{
 if (interactive()) {
 

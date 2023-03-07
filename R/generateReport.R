@@ -1,5 +1,15 @@
 #' Create a report a given set of packages
 #'
+#' @description The function compiles statistics for Bioconductor packages that
+#'   have GitHub repositories. It uses functionality in `BiocPkgTools` to
+#'   extract commit and issue history. A token is required to access the
+#'   GitHub commit and issue history.
+#'
+#' @section Authentication:
+#'   The package uses the `gh` package calls from `BiocPkgTools`. Users must
+#'   authenticate with a GitHub Fine Grained Token and add the token using
+#'   `gitcreds::gitcreds_set()`.
+#'
 #' @param packages `character()` A vector of valid package names
 #'
 #' @param gh_org `character(1)` The GitHub organization from which to read
