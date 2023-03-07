@@ -105,8 +105,6 @@ ncommits <-
     paste0(ncommits, " ", if (identical(ncommits, 1L)) "commit" else "commits")
 ```
 
-## {{{package}}}
-
 {{{package}}} is in the top `r dlrank`% most downloaded `r packageType` packages
 in Bioconductor, averaging about `r avgdls` downloads per month since `r smonth`
 `r syear`. About `r totalrd` Bioconductor packages depend on {{{package}}} in

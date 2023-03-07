@@ -4,7 +4,7 @@
 \alias{generateReport}
 \title{Create a report a given set of packages}
 \usage{
-generateReport(packages, gh_org, since_date, overwrite = FALSE)
+generateReport(packages, gh_org, since_date, outdir = ".", overwrite = FALSE)
 }
 \arguments{
 \item{packages}{\code{character()} A vector of valid package names}
@@ -15,6 +15,10 @@ issue and commit data from.}
 \item{since_date}{\code{character(1)} The date from when to start looking at
 commit and issue history. This should be specified in the year, month, and
 day format, 'YYYY-MM-DD'.}
+
+\item{outdir}{\code{character(1)} The directory in which to place rendered
+RMarkdown documents, by default they will be placed in the current working
+directory.}
 
 \item{overwrite}{\code{logical(1)} Whether to overwrite an existing rendered
 product, i.e., a runnable RMarkdown document.}
@@ -41,7 +45,6 @@ generateReport(
     ),
     gh_org = "waldronlab",
     since_date = "2021-05-01",
-    template = "~/test/Pkg_report_template.Rmd",
     overwrite = TRUE
 )
 
@@ -49,7 +52,6 @@ generateReport(
     "RaggedExperiment",
     gh_org = "Bioconductor",
     since_date = "2021-05-01",
-    template = "~/test/Pkg_report_template.Rmd",
     overwrite = TRUE
 )
 

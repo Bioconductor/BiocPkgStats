@@ -19,6 +19,10 @@
 #'   commit and issue history. This should be specified in the year, month, and
 #'   day format, 'YYYY-MM-DD'.
 #'
+#' @param outdir `character(1)` The directory in which to place rendered
+#'   RMarkdown documents, by default they will be placed in the current working
+#'   directory.
+#'
 #' @param overwrite `logical(1)` Whether to overwrite an existing rendered
 #'   product, i.e., a runnable RMarkdown document.
 #'
@@ -31,7 +35,6 @@
 #'     ),
 #'     gh_org = "waldronlab",
 #'     since_date = "2021-05-01",
-#'     template = "~/test/Pkg_report_template.Rmd",
 #'     overwrite = TRUE
 #' )
 #'
@@ -39,7 +42,6 @@
 #'     "RaggedExperiment",
 #'     gh_org = "Bioconductor",
 #'     since_date = "2021-05-01",
-#'     template = "~/test/Pkg_report_template.Rmd",
 #'     overwrite = TRUE
 #' )
 #'
@@ -47,7 +49,7 @@
 #'
 #' @export
 generateReport <- function(
-    packages, gh_org, since_date,
+    packages, gh_org, since_date, outdir = ".",
     overwrite = FALSE
 ) {
     stopifnot(
@@ -58,16 +60,16 @@ generateReport <- function(
     )
 
     template <- system.file(
-        package = "BiocPkgStats", "template", "package_stats.Rmd"
+        package = "BiocPkgStats", "template", "package_stats.Rmd",
+        mustWork = TRUE
     )
-    base_path <- dirname(template)
     temp_char <- readLines(template)
 
     for (pkg in packages) {
 
     message("Working on: ", pkg)
     rendered_path <- file.path(
-        base_path, paste0(pkg, "_", basename(template))
+        outdir, paste0(pkg, "_", basename(template))
     )
 
     rendered <- whisker::whisker.render(
@@ -87,5 +89,5 @@ generateReport <- function(
 
     }
 
-    invisible(base_path)
+    invisible(outdir)
 }
