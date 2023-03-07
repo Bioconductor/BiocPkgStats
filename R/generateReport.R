@@ -97,6 +97,8 @@ generateReport <- function(
 
 .get_pkg_type <- function(package) {
     bv <- utils::packageDescription(pkg = package)$biocViews
-    terms <- unlist(strsplit(packageDescription(package)$biocViews, ",\\s+|\n"))
+    terms <- unlist(strsplit(
+        utils::packageDescription(package)$biocViews, ",\\s+|\n"
+    ))
     type <- biocViews::guessPackageType(terms)
 }

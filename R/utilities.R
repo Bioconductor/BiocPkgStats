@@ -1,3 +1,19 @@
+#' @name BiocPkgStats-helpers
+#'
+#' @title Internal helpers to translate values to text
+#'
+#' @param type_term `character(1)` A term to be translated obtained from
+#'   `biocViews::guessPackageType()`
+#'
+#' @param packageType `character(1)` The term given by `typeTranslate` and
+#'   often used throughout the project, e.g., "software", "data-experiment",
+#'   etc.
+#'
+#' @description `typeTranslate` will take a package's `biocViews` terms and run
+#'   them through `biocViews::guessPackageType()` to obtain the package type
+#'   value. `typeEnglish` will take the package type value and convert it
+#'   into standard English text.
+#'
 #' @keywords internal
 #' @export
 typeTranslate <- function(type_term) {
@@ -15,6 +31,8 @@ typeTranslate <- function(type_term) {
     result
 }
 
+#' @rdname BiocPkgStats-helpers
+#'
 #' @keywords internal
 #' @export
 typeEnglish <- function(package_type) {
