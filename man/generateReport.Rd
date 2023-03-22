@@ -9,12 +9,14 @@ generateReport(packages, gh_org, since_date, outdir = ".", overwrite = FALSE)
 \arguments{
 \item{packages}{\code{character()} A vector of valid package names}
 
-\item{gh_org}{\code{character(1)} The GitHub organization from which to read
-issue and commit data from.}
+\item{gh_org}{\code{character()} The GitHub organization from which to read
+issue and commit data from. It can be a vector the length of \code{packages} if
+the packages are hosted under different GitHub organizations.}
 
-\item{since_date}{\code{character(1)} The date from when to start looking at
+\item{since_date}{\code{character()} The date from when to start looking at
 commit and issue history. This should be specified in the year, month, and
-day format, 'YYYY-MM-DD'.}
+day format, 'YYYY-MM-DD'. It can be a vector of dates that match the
+length \code{packages}.}
 
 \item{outdir}{\code{character(1)} The directory in which to place rendered
 RMarkdown documents, by default they will be placed in the current working
@@ -44,13 +46,6 @@ generateReport(
         "MultiAssayExperiment", "cBioPortalData", "SingleCellMultiModal"
     ),
     gh_org = "waldronlab",
-    since_date = "2017-05-01",
-    overwrite = TRUE
-)
-
-generateReport(
-    "RaggedExperiment",
-    gh_org = "Bioconductor",
     since_date = "2017-05-01",
     overwrite = TRUE
 )

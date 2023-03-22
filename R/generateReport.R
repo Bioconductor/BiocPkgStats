@@ -12,12 +12,14 @@
 #'
 #' @param packages `character()` A vector of valid package names
 #'
-#' @param gh_org `character(1)` The GitHub organization from which to read
-#'   issue and commit data from.
+#' @param gh_org `character()` The GitHub organization from which to read
+#'   issue and commit data from. It can be a vector the length of `packages` if
+#'   the packages are hosted under different GitHub organizations.
 #'
-#' @param since_date `character(1)` The date from when to start looking at
+#' @param since_date `character()` The date from when to start looking at
 #'   commit and issue history. This should be specified in the year, month, and
-#'   day format, 'YYYY-MM-DD'.
+#'   day format, 'YYYY-MM-DD'. It can be a vector of dates that match the
+#'   length `packages`.
 #'
 #' @param outdir `character(1)` The directory in which to place rendered
 #'   RMarkdown documents, by default they will be placed in the current working
@@ -38,13 +40,6 @@
 #'     overwrite = TRUE
 #' )
 #'
-#' generateReport(
-#'     "RaggedExperiment",
-#'     gh_org = "Bioconductor",
-#'     since_date = "2017-05-01",
-#'     overwrite = TRUE
-#' )
-#'
 #' }
 #'
 #' @export
@@ -55,7 +50,6 @@ generateReport <- function(
     stopifnot(
         BiocBaseUtils::isCharacter(packages),
         BiocBaseUtils::isScalarCharacter(gh_org),
-        BiocBaseUtils::isScalarCharacter(template),
         BiocBaseUtils::isTRUEorFALSE(overwrite)
     )
 
@@ -65,21 +59,21 @@ generateReport <- function(
     )
     temp_char <- readLines(template)
 
-    for (pkg in packages) {
-
-    message("Working on: ", pkg)
     rendered_path <- file.path(
-        outdir, paste0(pkg, "_", basename(template))
+        outdir, paste0("packages_", basename(template))
     )
 
-    type <- .get_pkg_type(pkg)
+    types <- vapply(packages, .get_pkg_type, character(1L))
 
+    pkgdata <- data.frame(
+        package = packages, pkgType = types,
+        org = gh_org, sinceDate = since_date,
+        row.names = NULL
+    )
+    datalist <- unname(split(pkgdata, pkgdata[["package"]]))
     rendered <- whisker::whisker.render(
         template = temp_char,
-        data = list(
-            package = pkg, org = gh_org, sinceDate = since_date,
-            pkgType = type, anyPkgs = TRUE
-        )
+        data = list(packages = datalist)
     )
 
     if (!overwrite && file.exists(rendered_path))
@@ -89,8 +83,6 @@ generateReport <- function(
         )
 
     writeLines(rendered, rendered_path)
-
-    }
 
     invisible(outdir)
 }

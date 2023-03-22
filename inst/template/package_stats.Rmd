@@ -1,20 +1,22 @@
 ---
-title: "{{{package}}}: Reporting Statistics"
+title: "Package Summary Statistics"
 output: html_document
 date: "2023-03-07"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 ```
-
-{{#anyPkgs}}
 
 ```{r,include=TRUE,results="hide",message=FALSE,warning=FALSE}
 library(BiocPkgTools)
 library(BiocPkgStats)
 library(lubridate)
 ```
+{{#packages}}
+
+# {{{package}}}
+
 ```{r}
 package <- "{{{package}}}"
 gh_org <- "{{{org}}}"
@@ -86,5 +88,4 @@ either their Depends, Imports, or Suggests fields. We have closed  `r nclosed`
 on GitHub relating to questions and improvements to the {{{package}}}
 infrastructure from the community and created `r ncommits`
 to the software to provide additional functionality and documentation.
-
-{{/anyPkgs}}
+{{/packages}}

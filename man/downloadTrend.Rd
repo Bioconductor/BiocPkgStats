@@ -7,9 +7,10 @@
 downloadTrend(package, since_date, include_recent = FALSE)
 }
 \arguments{
-\item{since_date}{\code{character(1)} The date from when to start looking at
+\item{since_date}{\code{character()} The date from when to start looking at
 commit and issue history. This should be specified in the year, month, and
-day format, 'YYYY-MM-DD'.}
+day format, 'YYYY-MM-DD'. It can be a vector of dates that match the
+length \code{packages}.}
 
 \item{include_recent}{\code{logical(1)} Whether to include the latest month of
 download data. Usually, the data for the most recent month has incomplete
