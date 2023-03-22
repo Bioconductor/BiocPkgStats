@@ -54,7 +54,7 @@ generateReport <- function(
     )
 
     template <- system.file(
-        package = "BiocPkgStats", "template", "package_stats.Rmd",
+        package = "BiocPkgStats", "template", "stats_report.Rmd",
         mustWork = TRUE
     )
     temp_char <- readLines(template)
