@@ -10,9 +10,10 @@ generateReport(packages, gh_org, since_date, outdir = ".", overwrite = FALSE)
 \item{packages}{\code{character()} A vector of valid package names that are
 installed}
 
-\item{gh_org}{\code{character()} The GitHub organization from which to read
-issue and commit data from. It can be a vector the length of \code{packages} if
-the packages are hosted under different GitHub organizations.}
+\item{gh_org}{\code{character()} The GitHub organization from which to read issue
+and commit data from. It can be either a scalar character to be recycled to
+the length of packages or a vector the length of \code{packages} for instances
+where packages are hosted under different GitHub organizations.}
 
 \item{since_date}{\code{character()} The date from when to start looking at
 commit and issue history. This should be specified in the year, month, and

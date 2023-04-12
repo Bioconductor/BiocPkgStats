@@ -16,9 +16,10 @@
 #' @param packages `character()` A vector of valid package names that are
 #'   installed
 #'
-#' @param gh_org `character()` The GitHub organization from which to read
-#'   issue and commit data from. It can be a vector the length of `packages` if
-#'   the packages are hosted under different GitHub organizations.
+#' @param gh_org `character()` The GitHub organization from which to read issue
+#'   and commit data from. It can be either a scalar character to be recycled to
+#'   the length of packages or a vector the length of `packages` for instances
+#'   where packages are hosted under different GitHub organizations.
 #'
 #' @param since_date `character()` The date from when to start looking at
 #'   commit and issue history. This should be specified in the year, month, and
