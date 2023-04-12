@@ -53,7 +53,7 @@ generateReport <- function(
 ) {
     stopifnot(
         BiocBaseUtils::isCharacter(packages),
-        BiocBaseUtils::isScalarCharacter(gh_org),
+        BiocBaseUtils::isCharacter(gh_org),
         BiocBaseUtils::isTRUEorFALSE(overwrite)
     )
 
