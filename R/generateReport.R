@@ -5,12 +5,16 @@
 #'   extract commit and issue history. A token is required to access the
 #'   GitHub commit and issue history.
 #'
+#' @details Note that packages must be installed in order to determine the
+#' package type via the `biocViews` field.
+#'
 #' @section Authentication:
 #'   The package uses the `gh` package calls from `BiocPkgTools`. Users must
 #'   authenticate with a GitHub Fine Grained Token and add the token using
 #'   `gitcreds::gitcreds_set()`.
 #'
-#' @param packages `character()` A vector of valid package names
+#' @param packages `character()` A vector of valid package names that are
+#'   installed
 #'
 #' @param gh_org `character()` The GitHub organization from which to read
 #'   issue and commit data from. It can be a vector the length of `packages` if
@@ -63,6 +67,7 @@ generateReport <- function(
         outdir, paste0("packages_", basename(template))
     )
 
+    .arePkgsInstalled(packages)
     types <- vapply(packages, .get_pkg_type, character(1L))
 
     pkgdata <- data.frame(
@@ -88,9 +93,7 @@ generateReport <- function(
 }
 
 .get_pkg_type <- function(package) {
-    bv <- utils::packageDescription(pkg = package)$biocViews
-    terms <- unlist(strsplit(
-        utils::packageDescription(package)$biocViews, ",\\s+|\n"
-    ))
-    type <- biocViews::guessPackageType(terms)
+    bv <- utils::packageDescription(pkg = package)[["biocViews"]]
+    terms <- unlist(strsplit(bv, ",\\s+|\n"))
+    biocViews::guessPackageType(terms)
 }

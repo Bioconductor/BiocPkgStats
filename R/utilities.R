@@ -41,3 +41,11 @@ typeEnglish <- function(package_type) {
             substr(package_type, nchar(package_type), nchar(package_type))
     gsub("-", " ", package_type)
 }
+
+.arePkgsInstalled <- function(pkgnames) {
+    for (pkgname in pkgnames) {
+        res <- system.file(package = pkgname)
+        if (!nzchar(res))
+            stop("there is no package called '", pkgname, "'")
+    }
+}

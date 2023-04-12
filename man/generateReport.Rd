@@ -7,7 +7,8 @@
 generateReport(packages, gh_org, since_date, outdir = ".", overwrite = FALSE)
 }
 \arguments{
-\item{packages}{\code{character()} A vector of valid package names}
+\item{packages}{\code{character()} A vector of valid package names that are
+installed}
 
 \item{gh_org}{\code{character()} The GitHub organization from which to read
 issue and commit data from. It can be a vector the length of \code{packages} if
@@ -30,6 +31,10 @@ The function compiles statistics for Bioconductor packages that
 have GitHub repositories. It uses functionality in \code{BiocPkgTools} to
 extract commit and issue history. A token is required to access the
 GitHub commit and issue history.
+}
+\details{
+Note that packages must be installed in order to determine the
+package type via the \code{biocViews} field.
 }
 \section{Authentication}{
 
