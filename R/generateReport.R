@@ -56,6 +56,9 @@ generateReport <- function(
         BiocBaseUtils::isCharacter(gh_org),
         BiocBaseUtils::isTRUEorFALSE(overwrite)
     )
+    if (!identical(length(gh_org), length(packages)) &&
+        !identical(length(gh_org), 1L))
+        stop("'gh_org' should be length one or the same length as 'packages'")
 
     template <- system.file(
         package = "BiocPkgStats", "template", "stats_report.Rmd",
