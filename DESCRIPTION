@@ -12,6 +12,7 @@ License: Artistic-2.0
 Imports:
   BiocBaseUtils,
   biocViews,
+  lubridate,
   utils,
   whisker
 Suggests:

@@ -3,6 +3,7 @@
 S3method(print,bioc_support_stats)
 export(downloadTrend)
 export(generateReport)
+export(generateTable)
 export(supportSiteStats)
 export(typeEnglish)
 export(typeTranslate)
