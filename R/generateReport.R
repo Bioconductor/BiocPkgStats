@@ -71,14 +71,7 @@ generateReport <- function(
         outdir, paste0("packages_", basename(template))
     )
 
-    .arePkgsInstalled(packages)
-    types <- vapply(packages, .get_pkg_type, character(1L))
-
-    pkgdata <- data.frame(
-        package = packages, pkgType = types,
-        org = gh_org, sinceDate = since_date,
-        row.names = NULL
-    )
+    pkgdata <- .get_pkg_data(packages, gh_org, since_date)
     datalist <- unname(split(pkgdata, pkgdata[["package"]]))
     rendered <- whisker::whisker.render(
         template = temp_char,
@@ -100,4 +93,15 @@ generateReport <- function(
     bv <- utils::packageDescription(pkg = package)[["biocViews"]]
     terms <- unlist(strsplit(bv, ",\\s+|\n"))
     biocViews::guessPackageType(terms)
+}
+
+.get_pkg_data <- function(packages, gh_org, since_date) {
+    .arePkgsInstalled(packages)
+    types <- vapply(packages, .get_pkg_type, character(1L))
+
+    data.frame(
+        package = packages, pkgType = types,
+        org = gh_org, sinceDate = since_date,
+        row.names = NULL
+    )
 }
