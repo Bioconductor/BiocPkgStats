@@ -67,7 +67,7 @@ generateTable <- function(packages, gh_org, since_date) {
     since_date <- lubridate::as_date(since_date)
     smonth <- lubridate::month(since_date, abbr = FALSE, label = TRUE)
     syear <- lubridate::year(since_date)
-    dlrank <- pkgDownloadRank(pkg = package, pkgType = pkgType)
+    dlrank <- BiocPkgTools::pkgDownloadRank(pkg = package, pkgType = pkgType)
     round(dlrank, 0)
 }
 
@@ -75,7 +75,9 @@ generateTable <- function(packages, gh_org, since_date) {
     now <- lubridate::year(Sys.time())
     syear <- lubridate::year(since_date)
     ## Average Downloads
-    dls <- pkgDownloadStats(package, pkgType = pkgType, years = syear:now)
+    dls <- BiocPkgTools::pkgDownloadStats(
+        package, pkgType = pkgType, years = syear:now
+    )
     avgdls <- mean(dls[["Nb_of_distinct_IPs"]])
     round(avgdls, 0)
 }
