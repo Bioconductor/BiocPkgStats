@@ -21,9 +21,9 @@ day format, 'YYYY-MM-DD'. It can be a vector of dates that match the
 length \code{packages}.}
 }
 \value{
-A data.frame of metrics including download rank, average number of
-monthly downloads, number of reverse dependencies, issues closed and
-commits done since the given date.
+A data.frame of metrics including download rank percentile, average
+number of monthly downloads, number of reverse dependencies, issues closed
+and commits since the given date.
 }
 \description{
 The function compiles statistics for Bioconductor packages that

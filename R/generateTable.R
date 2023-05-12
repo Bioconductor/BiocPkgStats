@@ -6,9 +6,9 @@
 #'   GitHub commit and issue history. See the `.token` argument in `?gh::gh`
 #'   for details on its use.
 #'
-#' @return A data.frame of metrics including download rank, average number of
-#'   monthly downloads, number of reverse dependencies, issues closed and
-#'   commits done since the given date.
+#' @return A data.frame of metrics including download rank percentile, average
+#'   number of monthly downloads, number of reverse dependencies, issues closed
+#'   and commits since the given date.
 #'
 #' @inheritParams generateReport
 #'
@@ -84,7 +84,7 @@ generateTable <- function(packages, gh_org, since_date) {
 
 .num_revdeps <- function(package) {
     ## Number of reverse dependencies
-    db <- available.packages(repos = BiocManager::repositories())
+    db <- utils::available.packages(repos = BiocManager::repositories())
     revdeps <- tools::package_dependencies(
         packages = package, db = db, reverse = TRUE, which = "all"
     )[[1]]
@@ -94,7 +94,7 @@ generateTable <- function(packages, gh_org, since_date) {
 .activity_since <- function(gh_repo, since_date, activity) {
     ## Activity since date: either "issues" or "commits"
     suppressMessages({
-        activity <- activitySince(
+        activity <- BiocPkgTools::activitySince(
             gh_repo,
             activity,
             "closed",

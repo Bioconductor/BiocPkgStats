@@ -7,6 +7,8 @@
 downloadTrend(package, since_date, include_recent = FALSE)
 }
 \arguments{
+\item{package}{\code{character(1)} The package to download activity for}
+
 \item{since_date}{\code{character()} The date from when to start looking at
 commit and issue history. This should be specified in the year, month, and
 day format, 'YYYY-MM-DD'. It can be a vector of dates that match the
