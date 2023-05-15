@@ -1,5 +1,7 @@
 #' Plot the download activity for a package
 #'
+#' @param package `character(1)` The package to download activity for
+#'
 #' @param include_recent `logical(1)` Whether to include the latest month of
 #'   download data. Usually, the data for the most recent month has incomplete
 #'   numbers and is excluded (default is `FALSE`).
@@ -22,10 +24,7 @@
 #'
 #' @export
 downloadTrend <- function(package, since_date, include_recent = FALSE) {
-    if (requireNamespace("lubridate", quietly = TRUE))
-        syear <- lubridate::year(lubridate::as_date(since_date))
-    else
-        syear <- format(as.Date.character(since_date), "%Y")
+    syear <- lubridate::year(lubridate::as_date(since_date))
     now <- Sys.time()
     this_year <- format(now, "%Y")
     this_month <- format(now, "%b")
@@ -33,7 +32,7 @@ downloadTrend <- function(package, since_date, include_recent = FALSE) {
     type <- .get_pkg_type(package)
     pkgType <- typeTranslate(type)
     dls <- BiocPkgTools::pkgDownloadStats(
-        package, pkgType = pkgType, years = syear:now
+        package, pkgType = pkgType, years = syear:this_year
     )
     if (!include_recent)
         dls <- dls[!(dls$Year == this_year & dls$Month == this_month), ]
@@ -47,7 +46,7 @@ downloadTrend <- function(package, since_date, include_recent = FALSE) {
     ## basic selector of months
     vals <- x[c(TRUE, FALSE)]
     tickmo <- dls[["Month"]][c(TRUE, FALSE)]
-    mtext(tickmo, side = 1, line = 1, at = vals, las = 2, cex = 0.8)
-    pos <- tapply(x, dls[["Year"]], median)
-    mtext(text = names(pos), side = 1, at = pos, line = 2.5)
+    graphics::mtext(tickmo, side = 1, line = 1, at = vals, las = 2, cex = 0.8)
+    pos <- tapply(x, dls[["Year"]], stats::median)
+    graphics::mtext(text = names(pos), side = 1, at = pos, line = 2.5)
 }

@@ -14,9 +14,9 @@
 #' endpoint at \url{https://docs.github.com/en/rest/issues} and the `gh` R
 #' package.
 #'
-#' @return A data.frame of metrics including download rank, average number of
-#'   monthly downloads, number of reverse dependencies, issues closed and
-#'   commits done since the given date.
+#' @return A data.frame of metrics including download rank percentile, average
+#'   number of monthly downloads, number of reverse dependencies, issues closed
+#'   and commits since the given date.
 #'
 #' @inheritParams generateReport
 #'
@@ -92,7 +92,7 @@ generateTable <- function(packages, gh_org, since_date) {
 
 .num_revdeps <- function(package) {
     ## Number of reverse dependencies
-    db <- available.packages(repos = BiocManager::repositories())
+    db <- utils::available.packages(repos = BiocManager::repositories())
     revdeps <- tools::package_dependencies(
         packages = package, db = db, reverse = TRUE, which = "all"
     )[[1]]

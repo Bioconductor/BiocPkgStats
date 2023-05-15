@@ -11,12 +11,14 @@ Description: Create package reports as RMarkdown documents. Rendering
 License: Artistic-2.0
 Imports:
   BiocBaseUtils,
+  BiocPkgTools,
   biocViews,
+  graphics,
   lubridate,
+  stats,
+  tools,
   utils,
   whisker
-Suggests:
-  lubridate
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

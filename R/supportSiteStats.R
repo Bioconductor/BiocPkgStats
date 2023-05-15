@@ -3,7 +3,12 @@
 #' Gather support site statistics for a given period
 #'
 #' @param from `character(1)` date in ISO 8601 format ("YYYY-MM-DD")
+#'
 #' @param to `character(1)` date in ISO 8601 format ("YYYY-MM-DD")
+#'
+#' @param x `bioc_support_stats` The class object that has a print method
+#'
+#' @param ... Additional arguments to the print method. Not used.
 #'
 #' @return a `bioc_support_stats` list class with components userdiff,
 #'   toplevdiff, questdiff, and respdiff

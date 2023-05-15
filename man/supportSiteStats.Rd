@@ -13,6 +13,10 @@ supportSiteStats(from = "2021-01-01", to = "2021-12-31")
 \item{from}{\code{character(1)} date in ISO 8601 format ("YYYY-MM-DD")}
 
 \item{to}{\code{character(1)} date in ISO 8601 format ("YYYY-MM-DD")}
+
+\item{x}{\code{bioc_support_stats} The class object that has a print method}
+
+\item{...}{Additional arguments to the print method. Not used.}
 }
 \value{
 a \code{bioc_support_stats} list class with components userdiff,
