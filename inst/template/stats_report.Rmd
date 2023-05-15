@@ -1,91 +1,41 @@
 ---
 title: "Package Summary Statistics"
 output: html_document
-date: "2023-03-07"
+date: "`r BiocStyle::doc_date()`"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, cache = TRUE)
 ```
 
 ```{r,include=TRUE,results="hide",message=FALSE,warning=FALSE}
 library(BiocPkgTools)
 library(BiocPkgStats)
-library(lubridate)
-```
-{{#packages}}
-
-# {{{package}}}
-
-```{r}
-package <- "{{{package}}}"
-gh_org <- "{{{org}}}"
-gh_repo <- paste(gh_org, package, sep = "/")
-pkgType <- typeTranslate("{{{pkgType}}}")
-packageType <- typeEnglish(pkgType)
 ```
 
-```{r}
-## Release Download Rank
-since_date <- as_date("{{{sinceDate}}}")
-smonth <- month(since_date, abbr = FALSE, label = TRUE)
-syear <- year(since_date)
-dlrank <- pkgDownloadRank(pkg = package, pkgType = pkgType, version = "3.16")
-dlrank <- round(dlrank, 0)
-```
-
-```{r}
-now <- year(Sys.time())
-## Average Downloads
-dls <- pkgDownloadStats(package, pkgType = pkgType, years = syear:now)
-avgdls <- mean(dls[["Nb_of_distinct_IPs"]])
-avgdls <- round(avgdls, 0)
-```
-
-```{r}
-## Number of reverse dependencies
-db <- available.packages(repos = BiocManager::repositories())
-revdeps <- tools::package_dependencies(
-    packages = package, db = db, reverse = TRUE, which = "all"
-)[[1]]
-totalrd <- length(revdeps)
-```
-
-```{r}
-## Activity since date
-## Issues closed: 
-suppressMessages({
-    activity <- activitySince(
-        gh_repo,
-        "issues",
-        "closed",
-        since_date
+```{r,echo=FALSE}
+packages <- unlist(
+    strsplit(
+        "{{package}}",
+        ","
     )
-})
-nclosed <- nrow(activity)
-nclosed <-
-    paste0(nclosed, " ", if (identical(nclosed, 1L)) "issue" else "issues")
-```
-
-```{r}
-## Commits made:
-suppressMessages({
-    commitact <- activitySince(
-        gh_repo,
-        "commits",
-        Date = since_date
+)
+gh_org <- unlist(
+    strsplit(
+        "{{org}}",
+        ","
     )
-})
-ncommits <- nrow(commitact)
-ncommits <-
-    paste0(ncommits, " ", if (identical(ncommits, 1L)) "commit" else "commits")
+)
+sinceDate <- unlist(
+    strsplit(
+        "{{sinceDate}}",
+        ","
+    )
+)
 ```
 
-{{{package}}} is in the top `r dlrank`% most downloaded `r packageType` packages
-in Bioconductor, averaging about `r avgdls` downloads per month since `r smonth`
-`r syear`. About `r totalrd` Bioconductor packages depend on {{{package}}} in
-either their Depends, Imports, or Suggests fields. We have closed  `r nclosed`
-on GitHub relating to questions and improvements to the {{{package}}}
-infrastructure from the community and created `r ncommits`
-to the software to provide additional functionality and documentation.
-{{/packages}}
+```{r,warning=FALSE}
+minitab <-
+    generateTable(packages = packages, gh_org = gh_org, since_date = sinceDate)
+knitr::kable(minitab)
+```

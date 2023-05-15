@@ -72,10 +72,9 @@ generateReport <- function(
     )
 
     pkgdata <- .get_pkg_data(packages, gh_org, since_date)
-    datalist <- unname(split(pkgdata, pkgdata[["package"]]))
     rendered <- whisker::whisker.render(
         template = temp_char,
-        data = list(packages = datalist)
+        data = pkgdata
     )
 
     if (!overwrite && file.exists(rendered_path))
