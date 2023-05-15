@@ -32,6 +32,14 @@ extract commit and issue history. A token is required to access the
 GitHub commit and issue history. See the \code{.token} argument in \code{?gh::gh}
 for details on its use.
 }
+\details{
+Note that pull requests are a type of "issue" on GitHub; therefore, issues
+and pull requests are combined when reporting the number of closed issues
+since a specific date. For more information on how the queries are preformed,
+see the GitHub API documentation for the \verb{/repos/\{owner\}/\{repo\}/issues}
+endpoint at \url{https://docs.github.com/en/rest/issues} and the \code{gh} R
+package.
+}
 \examples{
 if (interactive()) {
 

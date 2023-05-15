@@ -6,6 +6,14 @@
 #'   GitHub commit and issue history. See the `.token` argument in `?gh::gh`
 #'   for details on its use.
 #'
+#' @details
+#' Note that pull requests are a type of "issue" on GitHub; therefore, issues
+#' and pull requests are combined when reporting the number of closed issues
+#' since a specific date. For more information on how the queries are preformed,
+#' see the GitHub API documentation for the `/repos/{owner}/{repo}/issues`
+#' endpoint at \url{https://docs.github.com/en/rest/issues} and the `gh` R
+#' package.
+#'
 #' @return A data.frame of metrics including download rank, average number of
 #'   monthly downloads, number of reverse dependencies, issues closed and
 #'   commits done since the given date.
@@ -94,7 +102,7 @@ generateTable <- function(packages, gh_org, since_date) {
 .activity_since <- function(gh_repo, since_date, activity) {
     ## Activity since date: either "issues" or "commits"
     suppressMessages({
-        activity <- activitySince(
+        activity <- BiocPkgTools::activitySince(
             gh_repo,
             activity,
             "closed",
