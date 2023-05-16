@@ -1,4 +1,4 @@
-#' Create a report a given set of packages
+#' Create a report for a given set of packages
 #'
 #' @description The function compiles statistics for Bioconductor packages that
 #'   have GitHub repositories. It uses functionality in `BiocPkgTools` to

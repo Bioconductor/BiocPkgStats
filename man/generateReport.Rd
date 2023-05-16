@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateReport.R
 \name{generateReport}
 \alias{generateReport}
-\title{Create a report a given set of packages}
+\title{Create a report for a given set of packages}
 \usage{
 generateReport(packages, gh_org, since_date, outdir = ".", overwrite = FALSE)
 }
