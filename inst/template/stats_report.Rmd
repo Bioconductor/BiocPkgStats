@@ -37,5 +37,10 @@ sinceDate <- unlist(
 ```{r,warning=FALSE}
 minitab <-
     generateTable(packages = packages, gh_org = gh_org, since_date = sinceDate)
+```
+
+```{r}
 knitr::kable(minitab)
 ```
+
+<sub> For column information, see `?generateTable`. </sub>
