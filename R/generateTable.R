@@ -12,11 +12,22 @@
 #' since a specific date. For more information on how the queries are preformed,
 #' see the GitHub API documentation for the `/repos/{owner}/{repo}/issues`
 #' endpoint at \url{https://docs.github.com/en/rest/issues} and the `gh` R
-#' package.
+#' package. The following list describes each column in the returned
+#' `data.frame`:
 #'
-#' @return A data.frame of metrics including download rank percentile, average
-#'   number of monthly downloads, number of reverse dependencies, issues closed
-#'   and commits since the given date.
+#' \itemize{
+#'     \item{download.rank:} The percentile rank of the package in its
+#'     respective repository, e.g., software, data-experiment etc.
+#'     \item{avg.downloads:} The average number of monthly downloads from
+#'     distinct IP addresses
+#'     \item{num.revdeps:} The number of "all" reverse dependencies including
+#'     "Depends", "Imports", "LinkingTo", "Suggests", and "Enhances"
+#'     \item{issues.since:} The number of closed issues (including pull
+#'     requests) since the date given
+#'     \item{commits.since:} The number of commits since the given date
+#' }
+#'
+#' @return A `data.frame` of metrics, see the `details` section for specifics
 #'
 #' @inheritParams generateReport
 #'

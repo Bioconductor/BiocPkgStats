@@ -21,9 +21,7 @@ day format, 'YYYY-MM-DD'. It can be a vector of dates that match the
 length \code{packages}.}
 }
 \value{
-A data.frame of metrics including download rank percentile, average
-number of monthly downloads, number of reverse dependencies, issues closed
-and commits since the given date.
+A \code{data.frame} of metrics, see the \code{details} section for specifics
 }
 \description{
 The function compiles statistics for Bioconductor packages that
@@ -38,7 +36,20 @@ and pull requests are combined when reporting the number of closed issues
 since a specific date. For more information on how the queries are preformed,
 see the GitHub API documentation for the \verb{/repos/\{owner\}/\{repo\}/issues}
 endpoint at \url{https://docs.github.com/en/rest/issues} and the \code{gh} R
-package.
+package. The following list describes each column in the returned
+\code{data.frame}:
+
+\itemize{
+\item{download.rank:} The percentile rank of the package in its
+respective repository, e.g., software, data-experiment etc.
+\item{avg.downloads:} The average number of monthly downloads from
+distinct IP addresses
+\item{num.revdeps:} The number of "all" reverse dependencies including
+"Depends", "Imports", "LinkingTo", "Suggests", and "Enhances"
+\item{issues.since:} The number of closed issues (including pull
+requests) since the date given
+\item{commits.since:} The number of commits since the given date
+}
 }
 \examples{
 if (interactive()) {
