@@ -19,7 +19,7 @@
 #'     \item{download.rank:} The percentile rank of the package in its
 #'     respective repository, e.g., software, data-experiment etc.
 #'     \item{avg.downloads:} The average number of monthly downloads from
-#'     distinct IP addresses
+#'     distinct IP addresses since the given date
 #'     \item{num.revdeps:} The number of "all" reverse dependencies including
 #'     "Depends", "Imports", "LinkingTo", "Suggests", and "Enhances"
 #'     \item{issues.since:} The number of closed issues (including pull
