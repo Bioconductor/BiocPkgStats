@@ -15,17 +15,17 @@
 #' package. The following list describes each column in the returned
 #' `data.frame`:
 #'
-#' \itemize{
-#'     \item{download.rank:} The percentile rank of the package in its
-#'     respective repository, e.g., software, data-experiment etc.
-#'     \item{avg.downloads:} The average number of monthly downloads from
-#'     distinct IP addresses since the given date
-#'     \item{num.revdeps:} The number of "all" reverse dependencies including
-#'     "Depends", "Imports", "LinkingTo", "Suggests", and "Enhances"
-#'     \item{issues.since:} The number of closed issues (including pull
-#'     requests) since the date given
-#'     \item{commits.since:} The number of commits since the given date
-#' }
+#' * download.rank: The percentile rank of the package in its respective
+#'   repository, e.g., software, data-experiment etc.
+#' * avg.downloads: The average number of monthly downloads from distinct IP
+#'   addresses since the given date
+#' * med.downloads: The median number of montly downloads from distinct IP
+#'   addresses since the given date
+#' * num.revdeps: The number of "all" reverse dependencies including "Depends",
+#'   "Imports", "LinkingTo", "Suggests", and "Enhances"
+#' * issues.since: The number of closed issues (including pull requests) since
+#'   the date given
+#' * commits.since: The number of commits since the given date
 #'
 #' @return A `data.frame` of metrics, see the `details` section for specifics
 #'
@@ -72,9 +72,11 @@ generateTable <- function(packages, gh_org, since_date) {
 .get_stats <- function(package, pkgType, since_date, gh_org) {
     gh_repo <- paste(gh_org, package, sep = "/")
     pkgType <- typeTranslate(pkgType)
+    dls <- .avg_median_dls(package, pkgType, since_date)
     data.frame(
         download.rank = .rel_dl_rank(package, pkgType, since_date),
-        avg.downloads = .avg_dls(package, pkgType, since_date),
+        avg.downloads = dls['avg'],
+        med.downloads = dls['med'],
         num.revdeps = .num_revdeps(package),
         issues.since = .activity_since(gh_repo, since_date, "issues"),
         commits.since = .activity_since(gh_repo, since_date, "commits")
@@ -90,7 +92,7 @@ generateTable <- function(packages, gh_org, since_date) {
     round(dlrank, 0)
 }
 
-.avg_dls <- function(package, pkgType, since_date) {
+.avg_median_dls <- function(package, pkgType, since_date) {
     now <- lubridate::year(Sys.time())
     syear <- lubridate::year(since_date)
     ## Average Downloads
@@ -98,7 +100,8 @@ generateTable <- function(packages, gh_org, since_date) {
         package, pkgType = pkgType, years = syear:now
     )
     avgdls <- mean(dls[["Nb_of_distinct_IPs"]])
-    round(avgdls, 0)
+    meddls <- median(dls[["Nb_of_distinct_IPs"]])
+    c(avg = round(avgdls, 0), med = round(meddls, 0))
 }
 
 .num_revdeps <- function(package) {
