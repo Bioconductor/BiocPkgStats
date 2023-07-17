@@ -60,7 +60,7 @@ generateTable <- function(packages, gh_org, since_date) {
                 package = pkgrow[['package']],
                 pkgType = pkgrow[['pkgType']],
                 since_date = pkgrow[['sinceDate']],
-                gh_org = gh_org
+                gh_org = pkgrow[["org"]]
             )
         ), .Names = pkgrow[['package']])
     })
