@@ -22,7 +22,7 @@ numbers and is excluded (default is \code{FALSE}).}
 Plot the download activity for a package
 }
 \examples{
-
+if (interactive()) {
 downloadTrend("MultiAssayExperiment", "2017-05-01")
 downloadTrend("cBioPortalData", "2017-05-01")
 downloadTrend("RaggedExperiment", "2017-05-01")
@@ -34,5 +34,5 @@ downloadTrend("curatedTCGAData", "2017-05-01")
 # low downloads
 downloadTrend("TENxIO", "2017-05-01")
 downloadTrend("terraTCGAdata", "2017-05-01")
-
+}
 }

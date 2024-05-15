@@ -16,9 +16,9 @@
 #' @author Vincent J. Carey
 #'
 #' @examples
-#'
+#' if (interactive()) {
 #' supportSiteStats()
-#'
+#' }
 #' @export
 supportSiteStats <-
     function(from = "2021-01-01", to = "2021-12-31")

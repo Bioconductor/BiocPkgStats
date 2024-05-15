@@ -9,7 +9,7 @@
 #' @inheritParams generateReport
 #'
 #' @examples
-#'
+#' if (interactive()) {
 #' downloadTrend("MultiAssayExperiment", "2017-05-01")
 #' downloadTrend("cBioPortalData", "2017-05-01")
 #' downloadTrend("RaggedExperiment", "2017-05-01")
@@ -21,7 +21,7 @@
 #' # low downloads
 #' downloadTrend("TENxIO", "2017-05-01")
 #' downloadTrend("terraTCGAdata", "2017-05-01")
-#'
+#' }
 #' @export
 downloadTrend <- function(package, since_date, include_recent = FALSE) {
     syear <- lubridate::year(lubridate::as_date(since_date))

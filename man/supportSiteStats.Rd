@@ -26,9 +26,9 @@ toplevdiff, questdiff, and respdiff
 Gather support site statistics for a given period
 }
 \examples{
-
+if (interactive()) {
 supportSiteStats()
-
+}
 }
 \author{
 Vincent J. Carey
