@@ -13,6 +13,7 @@ Description: Create package reports as RMarkdown documents. Rendering
   RMarkdown documents will provide a brief summary of package statistics.
   A starting date must be specified.
 License: Artistic-2.0
+Depends: R (>= 4.1.0)
 Imports:
   BiocBaseUtils,
   BiocPkgTools,
